@@ -1,0 +1,19 @@
+select#client-classroom {
+    width: 15%;
+}
+select#client-student {
+    width:15%;
+}
+.price {
+    bottom: 70px;
+    position: relative;
+    padding-left: 0px;
+    padding-right: 100px;
+    right: 25px;
+}
+
+.button_client {
+    position: relative;
+    top: 160px;
+    right: 70px;
+}
