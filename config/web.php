@@ -40,10 +40,23 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+           //'enableStrictParsing'=> true,
+            'baseUrl' => '',
+            
+            
+             'rules' => array(
+            '<controller:\w+>/<id:\d+>' => '<controller>/view',
+            '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+            '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+        ),
+         'rules' => [
+            'index'=>'site/index',
+             'admin'=>'admin/admin',
+             'login'=>'site/login',
+             ],
         ],
         
     ],

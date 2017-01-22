@@ -17,3 +17,28 @@ select#client-student {
     top: 160px;
     right: 70px;
 }
+.admin {
+    width: 100%;
+    position: relative;
+    padding: 70px 15px 15px 20px;
+}
+.watch_post{
+    border: 1px solid black;
+    background-color: #F5F5F5;
+    height: auto;
+}
+.droplist {
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+/*.grid_table временный нужно будет потом убрать так как gridview имеет свой стиль и цвет*/
+.left_block,.grid_table{
+    border: 1px solid black;
+    background-color: #F5F5F5;
+    height: auto;
+    
+}
+.title_left_block p {
+    margin-top: 50px;
+}

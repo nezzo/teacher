@@ -24,15 +24,9 @@ class Client extends Model {
    public $dates;
    public $student;
    public $nameStudent1;
-   public $nameStudent2;
-   public $nameStudent3;
    public $price1;
    public $price2;
-   public $price3;
-   public $price4;
    public $pruxid1;
-   public $pruxid2;
-   public $pruxid3;
    public $inform;
    
     
