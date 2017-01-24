@@ -23,10 +23,10 @@ class Client extends Model {
    public $classRoom;
    public $dates;
    public $student;
-   public $nameStudent1;
+   public $nameStudent;
    public $price1;
    public $price2;
-   public $pruxid1;
+   public $pruxid;
    public $inform;
    
     

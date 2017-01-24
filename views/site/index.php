@@ -13,14 +13,30 @@ use yii\bootstrap\ActiveForm;
 <?=$form->field($model, 'classRoom')->dropDownList($room,['prompt'=>'Выбрать'])->label("Аудиторiя") ?>
 <?= $form->field($model, 'dates')->textInput(['style'=>'width:15%;'])->label("Дата i час") ?>
 <?=$form->field($model, 'student')->dropDownList($stud,['prompt'=>'Выбрать'])->label("Студент(и)") ?> 
-      <div class="col-md-3"> 
-       <div class="row">
-            <?= $form->field($model, 'nameStudent1')->textInput(['style'=>'width:60%;'])->label("Iм'я")?>
+                 
+      <div class='window_add_user'>
+            <?= $form->field($model, 'nameStudent')->textInput(['style'=>'width:100%;'])->label("Новий студент")?>
+            <?= Html::submitButton('Додати нового', ['class' => 'add_user btn btn-primary save_button', 'name' => 'save-button']) ?>
+
+      </div>
+            <div class="col-md-3">
+        <div class="row">
+            <div class='name_student'>
+            <?= $form->field($model, 'nameStudent')->textInput(['style'=>'width:60%;'])->label("Iм'я")?>
+            </div>    
        </div>
        </div>
        <div class="price"> 
        <div class="col-md-3">
-        <div class="row">
+           <div class="icon_add">
+                <div class="add_user">
+                    <img src='../image/user_add.png' />
+                </div>
+               <div class='add_group'>
+                   <img src='../image/new-group.png' />
+               </div>
+            </div> 
+         <div class="row">
            <?=$form->field($model, 'price1')->dropDownList($room,['prompt'=>'Выбрать'])->label("Вартiсть") ?>
            <?=$form->field($model, 'price2')->dropDownList($room,['prompt'=>'Выбрать'])->label(" ") ?>
       </div>
@@ -28,14 +44,16 @@ use yii\bootstrap\ActiveForm;
        </div>
        <div class="col-md-6">           
         <div class="row">
+           <div class='right_size'>
            <div class="col-md-6">
-            <?= $form->field($model, 'pruxid1')->textInput(['style'=>'width:60%;'])->label("Прихiд")?>
-          </div>
-         <?= Html::submitButton('Додати нового', ['class' => 'btn btn-primary save_button', 'name' => 'save-button']) ?>
-
+            <div class='pruxid_student'>   
+            <?= $form->field($model, 'pruxid')->textInput(['style'=>'width:60%;'])->label("Прихiд")?>
             </div>
-           </div>
-            
+         </div>
+         <?= Html::submitButton('Додати нового', ['class' => 'add_user_button btn btn-primary save_button', 'name' => 'save-button']) ?>
+         </div>
+          </div>
+         </div>   
            <div class="col-md-12">
                <?= $form->field($model, 'inform')->textInput(['style'=>'width:600px;'])->label("Додаткова iнформацiя") ?>
            </div> 

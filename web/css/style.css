@@ -42,3 +42,54 @@ select#client-student {
 .title_left_block p {
     margin-top: 50px;
 }
+.icon_add {
+    width: 70%;
+    margin-bottom: 20px;
+}
+.add_user {
+    width: 30%;
+    float: right;
+    cursor: pointer;
+}
+.add_user img {
+    width: 100%;
+    height: auto;
+   
+}
+.add_group {
+    width: 30%;
+    cursor: pointer;
+}
+.add_group img {
+    width: 100%;
+    height: auto;
+}
+.name_student {
+    position: relative;
+    margin-top: 70px;
+}
+.pruxid_student {
+    position: absolute;
+}
+.right_size {
+    position: relative;
+    height: 65px;
+    bottom: 65px;
+}
+button.add_user_button.btn.btn-primary.save_button {
+    position: absolute;
+    bottom: 5px;
+}
+.window_add_user {
+    float: right;
+    position: relative;
+    bottom: 200px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 30%;
+    display:none;
+}
+button.add_user.btn.btn-primary.save_button {
+    float: left;
+    width: 130px;
+}
