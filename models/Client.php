@@ -18,16 +18,29 @@ use yii\base\Model;
  * @author nestor
  */
 class Client extends Model {
-   public $radio;
+   public $radio = 1;// устанавливаем по дефолту Уроки radioButton
    public $teacher;
    public $classRoom;
    public $dates;
    public $student;
    public $nameStudent;
-   public $price1;
-   public $price2;
+   public $price;
    public $pruxid;
    public $inform;
+   public $group;
+   
+   
+   //выводи все цены что есть 
+   public function allPrice(){
+          $rows = (new \yii\db\Query())
+            ->select(['id','price'])
+            ->from('price')
+            ->all();
+
+        return $rows;
+    }
+    
+   
    
     
 }

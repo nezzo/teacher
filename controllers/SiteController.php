@@ -67,6 +67,7 @@ class SiteController extends Controller
         $item = array('класс1','класс2','класс3');
         $stud = array('Вася','Петя','Витя');
         
+       
         return $this->render('index',[
             'model'=> $client,
             'room' => $item,
@@ -74,6 +75,21 @@ class SiteController extends Controller
         ]);
     }
 
+    
+    public function actionPriceall(){
+         if(Yii::$app->request->isAjax){
+             $price = $data = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+                return [
+                    'price' => $client->allPrice,
+                    
+                ];
+                
+            }
+
+    }
     /**
      * Login action.
      *

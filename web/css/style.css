@@ -43,13 +43,23 @@ select#client-student {
     margin-top: 50px;
 }
 .icon_add {
-    width: 70%;
+    width: 10%;
     margin-bottom: 20px;
+    margin-left: 20%;
+    bottom: 50px;
+    position: relative;
 }
 .add_user {
-    width: 30%;
+    width: 40%;
     float: right;
     cursor: pointer;
+}
+.add_user_button_window{
+    width: 80px;
+    float: left;
+}
+.add_user_button{
+    width:120px;
 }
 .add_user img {
     width: 100%;
@@ -57,12 +67,16 @@ select#client-student {
    
 }
 .add_group {
-    width: 30%;
+    width: 40%;
     cursor: pointer;
 }
 .add_group img {
     width: 100%;
     height: auto;
+}
+.group_user_button_window{
+    width: 80px;
+    float: left;
 }
 .name_student {
     position: relative;
@@ -76,10 +90,7 @@ select#client-student {
     height: 65px;
     bottom: 65px;
 }
-button.add_user_button.btn.btn-primary.save_button {
-    position: absolute;
-    bottom: 5px;
-}
+
 .window_add_user {
     float: right;
     position: relative;
@@ -89,7 +100,25 @@ button.add_user_button.btn.btn-primary.save_button {
     width: 30%;
     display:none;
 }
-button.add_user.btn.btn-primary.save_button {
-    float: left;
-    width: 130px;
+.window_add_group{
+  float: right;
+    position: relative;
+    bottom: 200px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 30%;
+    display:none;  
+}
+
+.tab_client {
+    width: 100%;
+    position: relative;
+    bottom: 40px;
+}
+.tab_client table {
+    width: 70%;
+}
+
+.form-group.field-client-price {
+    margin-right: 40px;
 }
