@@ -16,7 +16,6 @@ $(document).ready(function(){
     $('.add_user').click(function(){
         $('.window_add_user').css('display','block');
         $('.window_add_group').css('display','none');
-        alert();
        
     });
     
@@ -25,48 +24,53 @@ $(document).ready(function(){
         $('.window_add_group').css('display','block');
     });
     
-    
+    //добавляем новые строки в Клиенте
     $('.add_user_button').click(function(e){
         //что бы по клику страница не перезагружалась
            e.preventDefault();
-
-
-            $.ajax({
-              url: '<?php echo Yii::$app->request->baseUrl. /SiteController/priceall ?>',
+           
+           var price = $('#client-price_first').html();
+            $('.tab_client tbody').append('<tr id='+id+'><td>\n\
+            <div class="form-group"><input type="text" class="form-control name_student"></div></td>\n\
+            <td><select class="form-control select_price select_add">'+price+'</select></td>\n\
+            <td><div class="form-group">\n\
+            <input type="text" class="form-control pruxid pruxid_add"></div></td></tr>');
+           
+     });
+     
+     //Добавляем в базу студент у которого нету группы
+     $('.add_user_button_window').click(function(e){
+         e.preventDefault();
+         var name_student = $('#client-namestudent').val();
+         
+         if(name_student){
+            $('.window_add_user').css('display','none'); 
+           // alert("Студент добавлен в базу");
+         }else{
+             alert("Ошибка. Не все поля заполены!");
+         }
+         
+         $.ajax({
+           url : '/addstudent',
                type : 'POST',
                dataType:'text',
                data :{
-                good: "good"
+                name_student:name_student
             },
              success:function(data){
-                 //$(".tr_"+id+" .na_edinitsu").text(data);
                  console.log(data);
                  
              },
              error:function (xhr, ajaxOptions, thrownError){
                 console.log(thrownError); //выводим ошибку
-            }
-              
-           });
-           
-        /*
-        $('.table_two tbody').append('<tr id="tr_'+id+'"><td>\n\
-        <div class="form-group"><input type="text" class="form-control name_student"></div></td>\n\
-        \n\
-         </tr>');
-        */ 
-        
-        
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
+            }   
+         });
+         
+         
+     });
+     
+     
+    //Actionv Controller ajaxsave
     
 });
 

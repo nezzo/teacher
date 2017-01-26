@@ -28,17 +28,52 @@ class Client extends Model {
    public $pruxid;
    public $inform;
    public $group;
-   
+   public $price_first; //это цена самой первой Вартости по которой регулируются все осталные 
    
    //выводи все цены что есть 
    public function allPrice(){
           $rows = (new \yii\db\Query())
-            ->select(['id','price'])
+            ->select(['id','price_stud'])
             ->from('price')
             ->all();
 
         return $rows;
     }
+    
+    
+    //делаем поиск по имени и возвращаем id если есть тако препод
+   public function allTeacher($name){
+          $rows = (new \yii\db\Query())
+            ->select(['id'])
+            ->from('teacher')
+            ->where(['name_teacher' => $name])       
+            ->all();
+
+        return $rows;
+    }
+    
+     //делаем поиск по имени и возвращаем id если есть такой студент
+   public function SeacrhNameStudent($name){
+          $rows = (new \yii\db\Query())
+            ->select(['id'])
+            ->from('student')
+            ->where(['student_name' => $name])       
+            ->all();
+
+        return $rows;
+    }
+    
+    //добавляем студента в базу(без группы==0)
+    public function NewUser($name){
+         $save = Yii::$app->db->createCommand()
+            ->insert('student', [
+                'student_name'=> $name,
+                'group_id' => 0,
+             ])->execute();
+
+        return $save;
+    }
+    
     
    
    

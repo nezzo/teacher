@@ -118,7 +118,22 @@ select#client-student {
 .tab_client table {
     width: 70%;
 }
+.form-group.field-client-price_first {
+    margin-right: 40px;
+}
 
 .form-group.field-client-price {
     margin-right: 40px;
+}
+
+input.form-control.name_student {
+    width: 80%;
+    bottom: 25px;
+}
+
+select.form-control.select_price.select_add {
+    width: 140px;
+}
+input.form-control.pruxid.pruxid_add {
+    width: 140px;
 }

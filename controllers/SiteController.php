@@ -75,20 +75,51 @@ class SiteController extends Controller
         ]);
     }
 
+    //добавляем нового студента (студент без группы) и выводоим сообщение добавлен или нет,если 
+    //такой студент уже существует выводим предупредительное сообщение
     
-    public function actionPriceall(){
+    public function actionAddstudent(){
+                    
          if(Yii::$app->request->isAjax){
-             $price = $data = Yii::$app->request->post();
+             $name_student = Yii::$app->request->post();
              \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
              $client = new Client();
+             $name = $client->SeacrhNameStudent($name_student);
+             $search_name = "";
              
-                return [
-                    'price' => $client->allPrice,
-                    
-                ];
-                
-            }
-
+             if(isset($name) && !empty($name)){
+             foreach($name as $nam){
+                 $search_name = $nam['id'];
+             }
+             }
+                         
+             
+             #@TODO почему то в NewUser выбрасывает ошибку 500 в моделе косяк, что то так с insert
+              if(isset($search_name) && !empty($search_name)){
+                 return [
+                    'name' => "Ошибка, данный студент есть в базе!",
+                  ]; 
+             }else{
+                 $new_name = $client->NewUser($name_student);
+                 
+                 return [
+                    'name' => $new_name//"Cтудент добавлен!",
+                  ]; 
+                 /*
+                 if(isset($new_name) && !empty($new_name)){
+                    return [
+                    'name' => "Cтудент добавлен!",
+                  ];  
+                 }else{
+                    return [
+                    'name' => "Ошибка!",
+                  ]; 
+                 }
+                 */
+             }
+             
+             
+        }
     }
     /**
      * Login action.

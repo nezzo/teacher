@@ -56,6 +56,8 @@ $config = [
             'index'=>'site/index',
              'admin'=>'admin/admin',
              'login'=>'site/login',
+             //добавляем студента без группы через ajax
+             'addstudent' => 'site/addstudent',
              ],
         ],
         

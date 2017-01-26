@@ -37,7 +37,7 @@ use yii\bootstrap\ActiveForm;
                 <thead>
                     <th>Iм'я</th>
                     <th>
-                     <?=$form->field($model, 'price')->dropDownList($room,['prompt'=>'Выбрать'])->label("Вартiсть") ?>
+                     <?=$form->field($model, 'price_first')->dropDownList($room,['prompt'=>'Выбрать','class' => 'form-control select_price'])->label("Вартiсть") ?>
                     </th>
                     <th>Прихiд</th>
                 </thead>
@@ -52,7 +52,7 @@ use yii\bootstrap\ActiveForm;
                            <p>Тут будут идти имена</p>
                         </td> 
                         <td>
-                            <?=$form->field($model, 'price')->dropDownList($room,['prompt'=>'Выбрать'])->label(" ") ?>
+                            <?=$form->field($model, 'price')->dropDownList($room,['prompt'=>'Выбрать','class' => 'form-control select_price'])->label(" ") ?>
                         </td>
                         <td>
                         <?= $form->field($model, 'pruxid')->textInput(['style'=>'width:60%;'])->label("")?>
