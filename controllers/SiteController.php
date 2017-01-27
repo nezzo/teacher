@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Client;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -63,15 +64,35 @@ class SiteController extends Controller
     {
         $client = new Client();
         
-        //для дропдаун листа пока что фича
-        $item = array('класс1','класс2','класс3');
-        $stud = array('Вася','Петя','Витя');
+        $roomClass = $client->Classroom();
+        
+        $allgroup = $client->Allgroup();
+        
+        $lessonstype = $client->Alltypelessons();
+        
+        $allprice = $client->allPrice();
+        
+        //вместо цикла foreach формируем для дроплиста данные
+        $room = ArrayHelper::map($roomClass, 'id', 'name_room');
+       
+        //выводим вместо цикла все  группы
+        $group = ArrayHelper::map($allgroup, 'id', 'name_group');
+        
+        //выводим вместо цикла все типы уроков
+        $type = ArrayHelper::map($lessonstype, 'id', 'name_type');
+        
+        //выводим вместо циклас все цены
+        $price = ArrayHelper::map($allprice, 'id', 'price_stud');
+        
         
        
         return $this->render('index',[
             'model'=> $client,
-            'room' => $item,
-            'stud' => $stud
+            'room' => $room,
+            'stud' => $stud,
+            'group'=> $group,
+            'type' => $type,
+            'price' => $price
         ]);
     }
 
@@ -84,7 +105,7 @@ class SiteController extends Controller
              $name_student = Yii::$app->request->post();
              \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
              $client = new Client();
-             $name = $client->SeacrhNameStudent($name_student);
+             $name = $client->SeacrhNameStudent($name_student["name_student"]);
              $search_name = "";
              
              if(isset($name) && !empty($name)){
@@ -92,20 +113,14 @@ class SiteController extends Controller
                  $search_name = $nam['id'];
              }
              }
-                         
-             
-             #@TODO почему то в NewUser выбрасывает ошибку 500 в моделе косяк, что то так с insert
-              if(isset($search_name) && !empty($search_name)){
+               
+             if(isset($search_name) && !empty($search_name)){
                  return [
                     'name' => "Ошибка, данный студент есть в базе!",
                   ]; 
-             }else{
-                 $new_name = $client->NewUser($name_student);
-                 
-                 return [
-                    'name' => $new_name//"Cтудент добавлен!",
-                  ]; 
-                 /*
+             }elseif(isset($name_student["name_student"]) && !empty($name_student["name_student"])){
+                 $new_name = $client->NewUser($name_student["name_student"]);
+                   
                  if(isset($new_name) && !empty($new_name)){
                     return [
                     'name' => "Cтудент добавлен!",
@@ -115,12 +130,104 @@ class SiteController extends Controller
                     'name' => "Ошибка!",
                   ]; 
                  }
-                 */
+                 
+             }else{
+                return [
+                    'name' => "Ошибка!",
+                  ];  
              }
+         }
+    }
+    
+    //Добавляем группу в базу
+    public function actionAddgroup(){
+        if(Yii::$app->request->isAjax){
+             $name_group = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             $name = $client->SeacrhNameGroup($name_group["name_group"]);
+             $search_name = "";
+             
+             if(isset($name) && !empty($name)){
+             foreach($name as $nam){
+                 $search_name = $nam['id'];
+             }
+             }
+             
+             if(isset($search_name) && !empty($search_name)){
+                 return [
+                    'name' => "Ошибка, данная группа есть в базе!",
+                  ]; 
+             }elseif(isset($name_group["name_group"]) && !empty($name_group["name_group"])){
+                 $new_name = $client->NewGroup($name_group["name_group"]);
+                   
+                 if(isset($new_name) && !empty($new_name)){
+                    return [
+                    'name' => "Группа добавлена!",
+                  ];  
+                 }else{
+                    return [
+                    'name' => "Ошибка!",
+                  ]; 
+                 }
+                 
+             }else{
+                return [
+                    'name' => "Ошибка!",
+                  ];  
+             }
+             
              
              
         }
     }
+    
+    //Проверяем существует ли такой препод
+    public function actionAllteacher(){
+        if(Yii::$app->request->isAjax){
+             $name_teacher = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             $name = $client->allTeacher($name_teacher["teacher"]);
+             $search_name = "";
+             
+           if(isset($name) && !empty($name)){
+             foreach($name as $nam){
+                 $search_name = $nam['id'];
+             }
+             }
+             
+        if(!isset($search_name) || empty($search_name)){
+                 return [
+                    'name' => "Помилка! Викладач не iснує",
+                  ]; 
+             }
+             
+        }
+    }
+    
+    //выводим клиенту данные о записи в journal
+    public function actionGetinfogroup(){
+        if(Yii::$app->request->isAjax){
+             $info = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+             if(isset($info) && !empty($info)){
+                 $group = $client->Infojournal($info["group_id"]);
+                 
+                 if(isset($group) && !empty($group)){
+                     return [
+                    'group' => $group,
+                  ];
+                 }
+                 
+             }
+        }
+    }
+    
+    
+    
     /**
      * Login action.
      *

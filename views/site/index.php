@@ -8,18 +8,18 @@ use yii\bootstrap\ActiveForm;
     <div class="row">
         <div class="radio_button">
             <?php $form = ActiveForm::begin(); ?>
-<?= $form->field($model, 'radio')->inline()->radioList(['1' => 'Уроки', '2' => 'Iнше'])->label(false) ?>
+<?= $form->field($model, 'radio')->inline()->radioList($type)->label(false) ?>
 <?= $form->field($model, 'teacher')->textInput(['style'=>'width:15%;'])->label("Вчитель") ?> 
 <?=$form->field($model, 'classRoom')->dropDownList($room,['prompt'=>'Выбрать'])->label("Аудиторiя") ?>
-<?= $form->field($model, 'dates')->textInput(['style'=>'width:15%;'])->label("Дата i час") ?>
-<?=$form->field($model, 'student')->dropDownList($stud,['prompt'=>'Выбрать'])->label("Студент(и)") ?> 
+<?= $form->field($model, 'dates')->textInput(['style'=>'width:15%;'])->label("Дата i час (2000-01-20 16:30)") ?>
+<?=$form->field($model, 'groups')->dropDownList($group,['prompt'=>'Выбрать'])->label("Студент(и)") ?> 
      <div class='window_add_user'>
             <?= $form->field($model, 'nameStudent')->textInput(['style'=>'width:100%;'])->label("Новий студент")?>
             <?= Html::submitButton('додати', ['class' => 'add_user_button_window btn btn-primary', 'name' => 'save-button']) ?>
 
       </div>
       <div class='window_add_group'>
-            <?= $form->field($model, 'group')->textInput(['style'=>'width:100%;'])->label("Додати групу")?>
+            <?= $form->field($model, 'group')->textInput(['style'=>'width:100%;'])->label("Додати групу. Наприклад 16:00 Нина Ивановна")?>
             <?= Html::submitButton('додати', ['class' => 'group_user_button_window btn btn-primary', 'name' => 'save-button']) ?>
 
       </div>      
@@ -37,7 +37,7 @@ use yii\bootstrap\ActiveForm;
                 <thead>
                     <th>Iм'я</th>
                     <th>
-                     <?=$form->field($model, 'price_first')->dropDownList($room,['prompt'=>'Выбрать','class' => 'form-control select_price'])->label("Вартiсть") ?>
+                     <?=$form->field($model, 'price_first')->dropDownList($price,['prompt'=>'Выбрать','class' => 'form-control select_price'])->label("Вартiсть") ?>
                     </th>
                     <th>Прихiд</th>
                 </thead>
@@ -45,29 +45,16 @@ use yii\bootstrap\ActiveForm;
                  <?php #TODO здесь будет начинаться цикл по выводу данных при выборе 
                  #группы <tr id=tr_$id> для каждой строки задаем id  для обновления в базе или 
                  #инсерта если такого ид нету, что бы получить id  нужно заюзать
-                 # jquery и получить данные тега tr и это будет ключем по заносу в базу данных ?>
+                 # jquery и получить данные тега tr и это будет ключем по заносу в базу
+                 # данных если записей нету то вывести простое поле для 
+                 # ввода?>
                     
-                    <tr>
-                        <td>
-                           <p>Тут будут идти имена</p>
-                        </td> 
-                        <td>
-                            <?=$form->field($model, 'price')->dropDownList($room,['prompt'=>'Выбрать','class' => 'form-control select_price'])->label(" ") ?>
-                        </td>
-                        <td>
-                        <?= $form->field($model, 'pruxid')->textInput(['style'=>'width:60%;'])->label("")?>
-                        </td>
-                        <?php #TODO конец цикла ?>
-                        
-                        <td>
-                        <?= Html::submitButton('Додати нового', ['class' => 'add_user_button btn btn-primary', 'name' => 'save-button']) ?>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-                    
-                </table>
-            </div>   
+                 </tbody>
+                 </table>
+                <div class="button_table">  
+              <?= Html::submitButton('Додати нового', ['class' => 'add_user_button btn btn-primary', 'name' => 'save-button']) ?>
+                </div>
+           </div>   
                      
             
             

@@ -58,6 +58,12 @@ $config = [
              'login'=>'site/login',
              //добавляем студента без группы через ajax
              'addstudent' => 'site/addstudent',
+             //Добавляем группу в базу через ajax
+             'addgroup' => 'site/addgroup',
+             //Проверяем существует ли такой препод через ajax
+             'allteacher' => 'site/allteacher',
+             //Выводим данные о группе в index
+             'getinfogroup' => 'site/getinfogroup',
              ],
         ],
         

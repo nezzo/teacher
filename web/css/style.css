@@ -1,7 +1,7 @@
 select#client-classroom {
     width: 15%;
 }
-select#client-student {
+select#client-groups {
     width:15%;
 }
 .price {
@@ -111,12 +111,12 @@ select#client-student {
 }
 
 .tab_client {
-    width: 100%;
+    width: 80%;
     position: relative;
     bottom: 40px;
 }
 .tab_client table {
-    width: 70%;
+    width: 85%;
 }
 .form-group.field-client-price_first {
     margin-right: 40px;
@@ -136,4 +136,16 @@ select.form-control.select_price.select_add {
 }
 input.form-control.pruxid.pruxid_add {
     width: 140px;
+}
+.button_table {
+    vertical-align: middle;
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+}
+select#client-price {
+    width: 140px;
+}
+select#client-price_first {
+    width:140px;
 }
