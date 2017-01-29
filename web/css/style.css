@@ -114,9 +114,11 @@ select#client-groups {
     width: 80%;
     position: relative;
     bottom: 40px;
+    display:none;
 }
 .tab_client table {
     width: 85%;
+    
 }
 .form-group.field-client-price_first {
     margin-right: 40px;
@@ -148,4 +150,8 @@ select#client-price {
 }
 select#client-price_first {
     width:140px;
+}
+
+.css_pruxid, .css_poyasn, .post_post{
+    display:none;
 }

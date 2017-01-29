@@ -64,6 +64,11 @@ $config = [
              'allteacher' => 'site/allteacher',
              //Выводим данные о группе в index
              'getinfogroup' => 'site/getinfogroup',
+             //Вводим данные в journal  с "iншi"
+             'inshi' => 'site/inshi',
+             //UPDATE таблицу journal
+             'updateinfojournal' => 'site/updateinfojournal',
+             
              ],
         ],
         

@@ -56,11 +56,23 @@ use yii\bootstrap\ActiveForm;
                 </div>
            </div>   
                      
-            
-            
+            <div class="css_pruxid">
+            <div class="col-md-12">
+               <?= $form->field($model, 'pruxid')->textInput(['style'=>'width:10%;'])->label("Прихiд") ?>
+           </div>
+           </div> 
+            <div class="css_poyasn">
+            <div class="col-md-12">
+               <?= $form->field($model, 'poyasn')->textInput(['style'=>'width:600px;'])->label("Пояснення") ?>
+           </div> 
+           </div> 
            <div class="col-md-12">
                <?= $form->field($model, 'inform')->textInput(['style'=>'width:600px;'])->label("Додаткова iнформацiя") ?>
            </div> 
+            <div class="col-md-12" style="margin-bottom:40px;">
+             <?= Html::submitButton('Вiдправити', ['class' => 'btn btn-primary post_post', 'name' => 'post']) ?>
+            </div>
+            
             <div class="col-md-12" style="margin-bottom:40px;">
              <?= Html::submitButton('Вiдправити', ['class' => 'btn btn-primary save_button', 'name' => 'post']) ?>
             </div> 

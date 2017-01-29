@@ -82,7 +82,7 @@ class SiteController extends Controller
         $type = ArrayHelper::map($lessonstype, 'id', 'name_type');
         
         //выводим вместо циклас все цены
-        $price = ArrayHelper::map($allprice, 'id', 'price_stud');
+        $price = ArrayHelper::map($allprice, 'id_price', 'price_stud');
         
         
        
@@ -213,19 +213,78 @@ class SiteController extends Controller
              \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
              $client = new Client();
              
-             if(isset($info) && !empty($info)){
+              if(isset($info) && !empty($info)){
                  $group = $client->Infojournal($info["group_id"]);
+                 $price_select  = $client->allPrice();
                  
                  if(isset($group) && !empty($group)){
                      return [
+                    'price_select' => $price_select,   
                     'group' => $group,
                   ];
                  }
                  
              }
+             
         }
     }
     
+    public function actionInshi(){
+         if(Yii::$app->request->isAjax){
+             $info = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+         
+             if(isset($info) && !empty($info)){
+                 if(isset($info["teacher"]) && !empty($info["teacher"])){
+                     $teacher_id = $client->allTeacher($info["teacher"]);
+                   
+                 $inshi_data = $client->Inshiinsert($info['date_time'],$info['type_less'],$teacher_id[0]['id'], $info['classroom'],$info['client_date'],$info['client_pruxid'],$info['client_poyasn']);  
+                 
+                 return [
+                    'answer' => $inshi_data   
+                    
+                  ];
+                  
+                 }
+                 
+                
+             }
+             
+          }
+        }
+        
+        
+        //принимаем и обрабатываем данные с ajax и заносим в базу Update Journal
+        public function actionUpdateinfojournal(){
+            if(Yii::$app->request->isAjax){
+             $info = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+             if(isset($info["mas_id"]) && !empty($info["mas_id"])){
+
+                 
+                 #@TODO нихера не работает цикл все данные прилетают запустить его не могу нужно спросить 
+                 #будет в yii2  канале что за херня они должны знать 
+                 for ($i = 0; $i<=count($info["mas_id"]); ++$i){
+                     for($z=0; $z<$i; ++$z){
+                         $answer =  $info["mas_id"][$z][$i];
+                     }
+                     
+                     
+                      
+                     
+                    }
+                    
+                     return [
+                    'answer' => var_dump($answer)  
+                    
+                  ];
+                    
+                }
+            }
+        }
     
     
     /**
