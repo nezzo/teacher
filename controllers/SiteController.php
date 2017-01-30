@@ -81,8 +81,11 @@ class SiteController extends Controller
         //выводим вместо цикла все типы уроков
         $type = ArrayHelper::map($lessonstype, 'id', 'name_type');
         
-        //выводим вместо циклас все цены
+         //выводим вместо циклас все цены
         $price = ArrayHelper::map($allprice, 'id_price', 'price_stud');
+        
+        //назначаем имена для радио баттонов по выбору что отображать
+        $group_student = array(3=>"Група(и)", 4=>"Студент(и)");
         
         
        
@@ -92,7 +95,8 @@ class SiteController extends Controller
             'stud' => $stud,
             'group'=> $group,
             'type' => $type,
-            'price' => $price
+            'price' => $price,
+            'group_student'=>$group_student,
         ]);
     }
 
@@ -182,6 +186,25 @@ class SiteController extends Controller
         }
     }
     
+    
+    //Проверяем существует ли такой студент
+    public function actionSearchstudent(){
+        if(Yii::$app->request->isAjax){
+             $name_student = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             $name = $client->SeacrhNameStudent($name_student["student"]);
+              
+             
+                if(!empty($name)){
+                         return [
+                            'name' => "Помилка! Студент не iснує",
+                          ]; 
+                     }
+             
+        }
+    }
+    
     //Проверяем существует ли такой препод
     public function actionAllteacher(){
         if(Yii::$app->request->isAjax){
@@ -263,27 +286,47 @@ class SiteController extends Controller
              $client = new Client();
              
              if(isset($info["mas_id"]) && !empty($info["mas_id"])){
-
-                 
-                 #@TODO нихера не работает цикл все данные прилетают запустить его не могу нужно спросить 
-                 #будет в yii2  канале что за херня они должны знать 
-                 for ($i = 0; $i<=count($info["mas_id"]); ++$i){
-                     for($z=0; $z<$i; ++$z){
-                         $answer =  $info["mas_id"][$z][$i];
-                     }
-                     
-                     
-                      
-                     
-                    }
-                    
-                     return [
-                    'answer' => var_dump($answer)  
+                for ($i = 0; $i<count($info["mas_id"]); $i++){
+                         $answers =  $info["mas_id"][$i];
+                         
+                      $update_data = $client->Updatejournal($answers);    
+                         
+                  }
+                    return [
+                    'answer' =>  $update_data
                     
                   ];
                     
                 }
             }
+        }
+        
+        //принимаем значения те что без ид и записываем в базу
+        public function actionInsertinfojournal(){
+            if(Yii::$app->request->isAjax){
+             $info = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+            if(!empty($info["mas_class"])){
+                
+                for ($i = 0; $i<count($info["mas_class"]); $i++){
+                    
+                      $answers =  $info["mas_class"][$i];
+                         
+                      $insert_data = $client->Insertjournal($answers);    
+                         
+                  }
+                    return [
+                    'answer' => $insert_data
+                    
+                  ];
+                    
+                }
+             
+             
+            }
+            
         }
     
     

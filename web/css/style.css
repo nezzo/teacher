@@ -4,6 +4,10 @@ select#client-classroom {
 select#client-groups {
     width:15%;
 }
+#client-students{
+   width:15%; 
+}
+
 .price {
     bottom: 70px;
     position: relative;
@@ -154,4 +158,21 @@ select#client-price_first {
 
 .css_pruxid, .css_poyasn, .post_post{
     display:none;
+}
+.table_one td {
+    width: 20%;
+}
+.field-client-groups, .add_group{
+    display: none;
+}
+
+.field-client-students, .add_user{
+    display: none;
+}
+
+.field-client-inform{
+    display: none;
+}
+.save_button{
+    display: none;
 }

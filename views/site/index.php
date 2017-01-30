@@ -11,8 +11,10 @@ use yii\bootstrap\ActiveForm;
 <?= $form->field($model, 'radio')->inline()->radioList($type)->label(false) ?>
 <?= $form->field($model, 'teacher')->textInput(['style'=>'width:15%;'])->label("Вчитель") ?> 
 <?=$form->field($model, 'classRoom')->dropDownList($room,['prompt'=>'Выбрать'])->label("Аудиторiя") ?>
-<?= $form->field($model, 'dates')->textInput(['style'=>'width:15%;'])->label("Дата i час (2000-01-20 16:30)") ?>
-<?=$form->field($model, 'groups')->dropDownList($group,['prompt'=>'Выбрать'])->label("Студент(и)") ?> 
+<?= $form->field($model, 'dates')->textInput(['style'=>'width:15%;'])->label("Дата i час") ?>
+<?= $form->field($model, 'type_group')->inline()->radioList($group_student)->label(false) ?>            
+<?=$form->field($model, 'groups')->dropDownList($group,['prompt'=>'Выбрать'])->label("Група(и)") ?>
+<?=$form->field($model, 'students')->dropDownList($group,['prompt'=>'Выбрать'])->label("Студент(и)") ?>
      <div class='window_add_user'>
             <?= $form->field($model, 'nameStudent')->textInput(['style'=>'width:100%;'])->label("Новий студент")?>
             <?= Html::submitButton('додати', ['class' => 'add_user_button_window btn btn-primary', 'name' => 'save-button']) ?>

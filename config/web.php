@@ -68,6 +68,13 @@ $config = [
              'inshi' => 'site/inshi',
              //UPDATE таблицу journal
              'updateinfojournal' => 'site/updateinfojournal',
+             //INSERT  в таблицу journal
+             'insertinfojournal' => 'site/insertinfojournal',
+             //Проверяем существует ли такой студент через ajax
+             'searchstudent' => 'site/searchstudent',
+             
+             
+             
              
              ],
         ],

@@ -29,7 +29,9 @@ class Client extends Model {
    public $groups;//список групп
    public $group;
    public $poyasn;
-   public $price_first; //это цена самой первой Вартости по которой регулируются все осталные 
+   public $price_first; //это цена самой первой Вартости по которой регулируются все осталные
+   public $students; //список студентов
+   public $type_group; //список Студент или Группа
    
    //выводи все цены что есть 
    public function allPrice(){
@@ -70,8 +72,7 @@ class Client extends Model {
          $save = Yii::$app->db->createCommand()
             ->insert('student', [
                 'student_name'=> $name,
-                'group_id' => 0,
-             ])->execute();
+               ])->execute();
 
         return $save;
     }
@@ -190,29 +191,53 @@ class Client extends Model {
      //обновляем записи те что в journal таблице
      public function Updatejournal($update){
           
-          
-        // $s = "foreach($this->SeacrhNameStudent($update[6]) as $stud){echo $stud;}";
-         /*
+         //возвращаем ид по именам и записываем в базу ид
+         $student_id = $this->SeacrhNameStudent($update[6]);
+         $teacher_id = $this->allTeacher($update[3]);
+         
           $save = Yii::$app->db->createCommand()
             ->update('journal', [
                 'data_auto' => $update[1],
                 'name_type' => $update[2],
-                'name_teacher' => 1,//$this->allTeacher($update[3]),
+                'name_teacher' =>$teacher_id[0]['id'],
                 'name_room' => $update[4],
                 'date_and_time' => $update[5],
-                'student_name' =>1,//$this->SeacrhNameStudent($update[6]),
+                'student_name' => $student_id[0]['id'],
                 'price_stud' => $update[7],
                 'pruxid' => $update[8],
                 'comment' => $update[9]
             ], 'id=:id', array(':id'=> (int)$update[0]))
             ->execute(); 
-          * 
-          */
-          
-        
-          
+          return $save;
          
-          return $update;
+     }
+     
+     
+     //получаем значение и инсертив в journal
+     public function Insertjournal($inserts){
+         
+        //возвращаем ид по именам и записываем в базу ид
+         $student_id = $this->SeacrhNameStudent($inserts[5]);
+         $teacher_id = $this->allTeacher($inserts[2]); 
+         
+       
+          $save = Yii::$app->db->createCommand()
+            ->insert('journal', [
+                'data_auto'=> $inserts[0],
+                'name_type' => $inserts[1],
+                'name_teacher' => $teacher_id[0]['id'],
+                'name_room' => $inserts[3],
+                'date_and_time' => $inserts[4],
+                'student_name' => $student_id[0]['id'],
+                'name_group' => $inserts[6],
+                'price_stud' => $inserts[7],
+                'pruxid' => $inserts[8],
+                'comment' => $inserts[9],
+              ])->execute();
+          
+          
+
+        return $save;
          
      }
    
