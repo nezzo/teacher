@@ -139,6 +139,7 @@ input.form-control.name_student {
 
 select.form-control.select_price.select_add {
     width: 140px;
+    margin-bottom: 15px;
 }
 input.form-control.pruxid.pruxid_add {
     width: 140px;
@@ -175,4 +176,7 @@ select#client-price_first {
 }
 .save_button{
     display: none;
+}
+.group_student_select {
+    width: 70%;
 }

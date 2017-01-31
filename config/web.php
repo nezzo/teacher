@@ -72,7 +72,10 @@ $config = [
              'insertinfojournal' => 'site/insertinfojournal',
              //Проверяем существует ли такой студент через ajax
              'searchstudent' => 'site/searchstudent',
-             
+             //По ajax получаем имя препода и возвращаем группы
+             'selectgroup' => 'site/selectgroup',
+             //По ajax получаем имя препода и возвращаем студентов
+             'selectstudent' => 'site/selectstudent',
              
              
              

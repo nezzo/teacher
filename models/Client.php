@@ -66,12 +66,13 @@ class Client extends Model {
         return $rows;
     }
     
-    //добавляем студента в базу(без группы==0)
-    public function NewUser($name){
+    //добавляем студента в базу(приписываем студента k преподу)
+    public function NewUser($name,$teacher_id){
         
          $save = Yii::$app->db->createCommand()
             ->insert('student', [
                 'student_name'=> $name,
+                'teacher_id'=> $teacher_id,
                ])->execute();
 
         return $save;
@@ -90,10 +91,11 @@ class Client extends Model {
     
     
     //добавляем группу в базу
-    public function NewGroup($name){
+    public function NewGroup($name,$teacher_id){
          $save = Yii::$app->db->createCommand()
             ->insert('group_stud', [
-                'name_group'=> $name
+                'name_group'=> 'Група-'.$name,
+                'teacher_id'=> $teacher_id,
              ])->execute();
 
         return $save;
@@ -217,7 +219,7 @@ class Client extends Model {
      public function Insertjournal($inserts){
          
         //возвращаем ид по именам и записываем в базу ид
-         $student_id = $this->SeacrhNameStudent($inserts[5]);
+         //$student_id = $this->SeacrhNameStudent($inserts[5]);
          $teacher_id = $this->allTeacher($inserts[2]); 
          
        
@@ -228,7 +230,7 @@ class Client extends Model {
                 'name_teacher' => $teacher_id[0]['id'],
                 'name_room' => $inserts[3],
                 'date_and_time' => $inserts[4],
-                'student_name' => $student_id[0]['id'],
+                'student_name' => $inserts[5],//$student_id[0]['id'],
                 'name_group' => $inserts[6],
                 'price_stud' => $inserts[7],
                 'pruxid' => $inserts[8],
@@ -240,6 +242,29 @@ class Client extends Model {
         return $save;
          
      }
+     
+     //по ид препода выводим  группы которые привязаны к преподу
+     public function getGroupNameForTeacher($teacher_id){
+         $rows = (new \yii\db\Query())
+            ->select(['id','name_group'])
+            ->from('group_stud')
+            ->where(['teacher_id' => $teacher_id])       
+            ->all();
+
+        return $rows;
+     }
+     
+     //по ид препода выводим  студентов которые привязаны к преподу
+     public function getStudentNameForTeacher($teacher_id){
+         $rows = (new \yii\db\Query())
+            ->select(['id','student_name'])
+            ->from('student')
+            ->where(['teacher_id' => $teacher_id])       
+            ->all();
+
+        return $rows;
+     }
+     
    
    
     

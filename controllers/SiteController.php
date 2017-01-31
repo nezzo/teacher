@@ -101,7 +101,7 @@ class SiteController extends Controller
     }
 
     //добавляем нового студента (студент без группы) и выводоим сообщение добавлен или нет,если 
-    //такой студент уже существует выводим предупредительное сообщение
+    //такой студент уже существует выводим предупредительное сообщение и привязываем к преподу
     
     public function actionAddstudent(){
                     
@@ -110,22 +110,32 @@ class SiteController extends Controller
              \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
              $client = new Client();
              $name = $client->SeacrhNameStudent($name_student["name_student"]);
+             $teacher_name = $client->allTeacher($name_student["name_teacher"]);
              $search_name = "";
+             $teacher_id = "";
              
-             if(isset($name) && !empty($name)){
+             if(!empty($name)){
              foreach($name as $nam){
                  $search_name = $nam['id'];
              }
              }
+             
+             if(!empty($teacher_name)){
+             foreach($teacher_name as $id){
+                 $teacher_id = $id['id'];
+             }
+             }
+             
+             
                
-             if(isset($search_name) && !empty($search_name)){
+             if(!empty($search_name)){
                  return [
                     'name' => "Ошибка, данный студент есть в базе!",
                   ]; 
-             }elseif(isset($name_student["name_student"]) && !empty($name_student["name_student"])){
-                 $new_name = $client->NewUser($name_student["name_student"]);
+             }elseif(!empty($name_student["name_student"]) && !empty($teacher_id)){
+                 $new_name = $client->NewUser($name_student["name_student"],$teacher_id);
                    
-                 if(isset($new_name) && !empty($new_name)){
+                 if(!empty($new_name)){
                     return [
                     'name' => "Cтудент добавлен!",
                   ];  
@@ -143,29 +153,37 @@ class SiteController extends Controller
          }
     }
     
-    //Добавляем группу в базу
+    //Добавляем группу в базу и привязываем к преподу
     public function actionAddgroup(){
         if(Yii::$app->request->isAjax){
              $name_group = Yii::$app->request->post();
              \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
              $client = new Client();
              $name = $client->SeacrhNameGroup($name_group["name_group"]);
+             $teacher_name = $client->allTeacher($name_group["name_teacher"]);
+             $teacher_id = "";
              $search_name = "";
              
-             if(isset($name) && !empty($name)){
+             if(!empty($name)){
              foreach($name as $nam){
                  $search_name = $nam['id'];
              }
              }
+             if(!empty($teacher_name)){
+             foreach($teacher_name as $id){
+                 $teacher_id = $id['id'];
+             }
+             }
              
-             if(isset($search_name) && !empty($search_name)){
+             
+             if(!empty($search_name)){
                  return [
                     'name' => "Ошибка, данная группа есть в базе!",
                   ]; 
-             }elseif(isset($name_group["name_group"]) && !empty($name_group["name_group"])){
-                 $new_name = $client->NewGroup($name_group["name_group"]);
+             }elseif(!empty($name_group["name_group"]) && !empty($teacher_id)){
+                 $new_name = $client->NewGroup($name_group["name_group"],$teacher_id);
                    
-                 if(isset($new_name) && !empty($new_name)){
+                 if(!empty($new_name)){
                     return [
                     'name' => "Группа добавлена!",
                   ];  
@@ -327,6 +345,64 @@ class SiteController extends Controller
              
             }
             
+        }
+        
+        //по ajax получаем имя препода и возвращаем список групп
+        public function actionSelectgroup(){
+            if(Yii::$app->request->isAjax){
+             $name_teacher = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+             $name = $client->allTeacher($name_teacher["teacher_id"]);
+             $search_name = "";
+             
+           if(!empty($name)){
+             foreach($name as $nam){
+                 $search_name = $nam['id'];
+             }
+             }
+             
+             if(!empty($search_name)){
+                 $group_list = $client->getGroupNameForTeacher($search_name);
+                 
+                 return [
+                    'answer' => $group_list
+                    
+                  ];
+             }
+             
+             
+             
+            }
+        }
+        
+        //по ajax получаем имя препода и возвращаем список студентов
+        public function actionSelectstudent(){
+            if(Yii::$app->request->isAjax){
+             $name_teacher = Yii::$app->request->post();
+             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+             $client = new Client();
+             
+             $name = $client->allTeacher($name_teacher["teacher_id"]);
+             $search_name = "";
+             
+           if(!empty($name)){
+             foreach($name as $nam){
+                 $search_name = $nam['id'];
+             }
+             }
+             
+             if(!empty($search_name)){
+                 $student_list = $client->getStudentNameForTeacher($search_name);
+                 
+                 return [
+                    'answer' => $student_list
+                    
+                  ];
+             }
+             
+            }
         }
     
     
